@@ -14,8 +14,7 @@ destination = None
 agent_station = 0
 
 # Q-Table
-with open("q-table.pkl", "rb") as handle:
-    q_table = pickle.load(handle)
+q_table = np.load("q-table.npy", allow_pickle=True).item()
 
 
 # functions
@@ -118,7 +117,7 @@ def get_action(obs):
     #       Otherwise, even if your agent performs well in training, it may fail during testing.
     state = get_state(obs)
     action = np.argmax(q_table[state])
-    return action
+    return action  # , state
     # You can submit this random agent to evaluate the performance of a purely random strategy.
 
 
