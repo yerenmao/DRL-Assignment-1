@@ -126,7 +126,7 @@ def get_action(obs):
     global last_action
     state = get_state(obs)
     action = np.argmax(q_table[state])
-    last_action = action
+    last_action = action if action < 4 else 4
     return action  # , state
     # You can submit this random agent to evaluate the performance of a purely random strategy.
 
