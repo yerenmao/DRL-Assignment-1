@@ -1,8 +1,6 @@
 # Remember to adjust your student ID in meta.xml
 import numpy as np
-import pickle
 import random
-import gym
 
 import math
 
@@ -12,6 +10,7 @@ stations = None
 passenger = None
 destination = None
 agent_station = 0
+last_action = 4  # 0: S, 1: N, 2: E, 3: W, 4: None
 
 # Q-Table
 q_table = np.load("q-table.npy", allow_pickle=True).item()
@@ -106,7 +105,16 @@ def get_state(obs):
             if agent_station < 3:
                 agent_station += 1
                 vector = get_direction_vector(curr, get_station(agent_station))
-    return (vector[0], vector[1], obs[10], obs[11], obs[12], obs[13], agent_status)
+    return (
+        vector[0],
+        vector[1],
+        obs[10],
+        obs[11],
+        obs[12],
+        obs[13],
+        agent_status,
+        last_action,
+    )
 
 
 def get_action(obs):
@@ -115,8 +123,10 @@ def get_action(obs):
     # NOTE: Keep in mind that your Q-table may not cover all possible states in the testing environment.
     #       To prevent crashes, implement a fallback strategy for missing keys.
     #       Otherwise, even if your agent performs well in training, it may fail during testing.
+    global last_action
     state = get_state(obs)
     action = np.argmax(q_table[state])
+    last_action = action
     return action  # , state
     # You can submit this random agent to evaluate the performance of a purely random strategy.
 
