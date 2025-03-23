@@ -13,7 +13,7 @@ agent_station = 0
 last_action = 4  # 0: S, 1: N, 2: E, 3: W, 4: None
 
 # Q-Table
-q_table = np.load("q-table.npy", allow_pickle=True).item()
+q_table = np.load("q-table-1.npy", allow_pickle=True).item()
 
 
 # functions
